@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
 
-# Run and deploy your AI Studio app
+# ACADEMIX-360 Deployment Guide
 
-This contains everything you need to run your app locally.
+Professional School Management ERP Landing Page.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1waENZ0tdc3d9NVn7FfVaS0bubJoZRnUV
+## Recommended Hosting Options
 
-## Run Locally
+### 1. Vercel (Recommended)
+1. Push this code to a GitHub repository.
+2. Import the project in Vercel.
+3. No build command is required for this ESM structure (Static).
+4. Go to **Settings > Domains** to connect your domain.
 
-**Prerequisites:**  Node.js
+### 2. Netlify
+1. Drag and drop the root folder into the Netlify "Deploy" box.
+2. Go to **Domain Settings** to point your custom domain.
 
+### 3. Manual Server (Cpanel/Apache/Nginx)
+1. Upload all files (index.html, index.tsx, components/, etc.) to your `public_html` or `/var/www/html` folder.
+2. Ensure your server serves `.tsx` files as `application/javascript` if your browser has trouble resolving modules, though ESM usually works out of the box with modern browsers.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Domain Setup (DNS)
+Point your domain's A record or CNAME to the provider's values:
+- **Vercel A Record**: `76.76.21.21`
+- **Netlify CNAME**: `your-app-name.netlify.app`

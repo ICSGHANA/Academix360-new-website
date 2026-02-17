@@ -1,64 +1,276 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academix360 | Modern School Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>ACADEMIX-360 | Modern School Management ERP</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-      // Initialize theme before content renders to prevent flash
-      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              primary: '#1E3A8A',
-              accent: '#F97316',
-              surface: '#F8FAFC',
-              dark: '#0F172A',
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            },
-          }
-        }
-      }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-      .dark body {
-        background-color: #0F172A;
-        color: #F8FAFC;
-      }
-      .scroll-smooth {
-        scroll-behavior: smooth;
-      }
+        :root {
+            --ax-blue: #1E3A8A;
+            --ax-orange: #F97316;
+            --ax-surface: #F8FAFC;
+            --ax-dark: #0F172A;
+            --ax-primary-rgb: 30, 58, 138;
+            --ax-orange-rgb: 249, 115, 22;
+            --transition-speed: 0.4s;
+        }
+
+        [data-bs-theme="dark"] {
+            --ax-surface: #0F172A;
+            --ax-dark: #F8FAFC;
+            --bs-body-bg: #0F172A;
+            --bs-body-color: #F8FAFC;
+            --bs-tertiary-bg: #1E293B;
+            --bs-secondary-bg: #111827;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--ax-surface);
+            color: var(--ax-dark);
+            overflow-x: hidden;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        .text-primary { color: var(--ax-blue) !important; }
+        .text-accent { color: var(--ax-orange) !important; }
+        .bg-primary { background-color: var(--ax-blue) !important; }
+        .bg-accent { background-color: var(--ax-orange) !important; }
+        
+        .btn-primary { 
+            background-color: var(--ax-blue); 
+            border-color: var(--ax-blue);
+            font-weight: 800;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-accent { 
+            background-color: var(--ax-orange); 
+            border-color: var(--ax-orange);
+            color: white;
+            font-weight: 800;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+        .btn-accent:hover {
+            background-color: #ea580c;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navbar {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color var(--transition-speed) ease;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid transparent;
+        }
+        .navbar.scrolled {
+            background-color: rgba(var(--bs-tertiary-bg-rgb), 0.8) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 0.5rem 0;
+            border-bottom-color: rgba(var(--ax-primary-rgb), 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+            font-weight: 700;
+        }
+        .nav-link.active {
+            color: var(--ax-orange) !important;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background-color: var(--ax-orange);
+            border-radius: 50%;
+        }
+
+        .hero-section {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, rgba(var(--ax-primary-rgb), 0.05) 0%, rgba(var(--ax-orange-rgb), 0.05) 100%);
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            transition: background var(--transition-speed) ease;
+        }
+
+        .feature-card {
+            border-radius: 2.5rem;
+            border: 2px solid rgba(var(--ax-primary-rgb), 0.08);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            height: 100%;
+            background: var(--bs-body-bg);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--ax-orange);
+            box-shadow: 0 25px 50px rgba(var(--ax-orange-rgb), 0.15);
+        }
+
+        .feature-card .icon-box {
+            transition: all 0.5s ease;
+            transform-origin: center;
+        }
+
+        .pricing-card {
+            border-radius: 3rem;
+            background-color: var(--ax-blue);
+            color: white;
+            padding: 3rem;
+            position: sticky;
+            top: 100px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        [data-bs-theme="dark"] .pricing-card {
+            background: linear-gradient(145deg, #1e3a8a, #1e293b);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            padding: 0.75rem 1.25rem;
+            border: 2px solid rgba(var(--ax-primary-rgb), 0.1);
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--ax-blue);
+            box-shadow: 0 0 0 0.25rem rgba(var(--ax-primary-rgb), 0.1);
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            background-color: var(--ax-blue);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(var(--ax-primary-rgb), 0.3);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            background-color: #172e6b;
+            box-shadow: 0 15px 30px rgba(var(--ax-primary-rgb), 0.4);
+        }
+
+        .theme-toggle-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(var(--ax-primary-rgb), 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(var(--ax-primary-rgb), 0.1);
+            transform: scale(1.05);
+        }
+
+        [data-bs-theme="dark"] .feature-card {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+        
+        .custom-range::-webkit-slider-thumb {
+            background: var(--ax-blue);
+        }
+        .custom-range::-moz-range-thumb {
+            background: var(--ax-blue);
+        }
+        
+        .shadow-inner {
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+        
+        .btn-white {
+            background-color: white;
+            color: var(--ax-blue);
+        }
+        [data-bs-theme="dark"] .btn-white {
+            background-color: #334155;
+            color: white;
+        }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "framer-motion": "https://esm.sh/framer-motion@^11.18.2"
-  }
-}
-</script>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "framer-motion": "https://esm.sh/framer-motion@^11.18.2"
+      }
+    }
+    </script>
 </head>
-<body class="scroll-smooth bg-surface dark:bg-dark text-dark dark:text-surface">
+<body>
     <div id="root"></div>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
